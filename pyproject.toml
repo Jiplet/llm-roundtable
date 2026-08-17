@@ -1,0 +1,32 @@
+[project]
+name = "llm-roundtable"
+version = "0.1.0"
+description = "Ask a council of LLMs instead of one: parallel opinions, anonymised peer review, chair synthesis, and a dissent ledger"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.27",
+    "pyyaml>=6.0",
+    "anthropic>=0.40",
+    "openai>=1.50",
+]
+
+[project.scripts]
+roundtable = "roundtable.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["roundtable"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.24",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"

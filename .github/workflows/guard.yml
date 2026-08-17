@@ -1,0 +1,16 @@
+name: sanitisation-guard
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  guard:
+    name: Check for secrets, paths, and private identifiers
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run sanitisation guard
+        run: bash .sanitisation-guard.sh

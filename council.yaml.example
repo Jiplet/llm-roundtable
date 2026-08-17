@@ -1,0 +1,61 @@
+# council.yaml.example: copy to council.yaml and edit. council.yaml is gitignored
+# (it is your personal member list, not a secret, just kept out of the diff).
+#
+# Each entry under `members` is one model in the roundtable. `provider` must be one
+# of: anthropic, openai, openrouter, ollama, claude_cli, fake. `name` is the short id
+# you will use in transcripts, the leaderboard, and --members / --chair.
+
+members:
+  - name: claude
+    provider: anthropic
+    model: claude-haiku-4-5-20251001
+    temperature: 0.4
+
+  - name: gpt
+    provider: openai
+    model: gpt-4.1-mini
+    temperature: 0.4
+
+  # Uncomment to add a local model at no cost. Requires `ollama serve` running
+  # and the model already pulled (`ollama pull llama3.1`).
+  # - name: llama
+  #   provider: ollama
+  #   model: llama3.1
+  #   temperature: 0.4
+
+  # Zero-key alternative: run through the Claude Code CLI itself, billed to whatever
+  # you are logged into rather than an API key. Needs Claude Code installed and you
+  # logged in; model is a CLI alias (haiku, sonnet, opus). temperature is ignored,
+  # since `claude -p` does not expose one. See README "the zero-key path".
+  # - name: haiku_cli
+  #   provider: claude_cli
+  #   model: haiku
+  #   temperature: 0.4
+
+# Name of the member (must match one of the names above) who writes the stage 3
+# synthesis and the stage 4 dissent ledger.
+chair: claude
+
+# Hide member identity during stage 2 peer review (per-reviewer label shuffle).
+# Leave this true unless you are specifically studying self-preference bias.
+anonymise: true
+
+# Run stage 4, the dissent ledger. Can also be turned off per-call with --no-dissent.
+dissent: true
+
+# Max tokens per model call, across all four stages.
+max_tokens: 1024
+
+# What reviewers score each other's answers on in stage 2, 1-10 each. Add or
+# remove dimensions here; council.py builds the review prompt and parser from
+# whatever list you give it, so this is not hardcoded.
+review_rubric:
+  - accuracy
+  - insight
+  - completeness
+
+# Folder holding lens files (see lenses/*.md), used by --lenses.
+lens_dir: lenses
+
+# Where the cumulative leaderboard file gets written.
+leaderboard_path: leaderboard.json

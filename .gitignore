@@ -1,0 +1,35 @@
+# Secrets and local configuration: never commit
+.env
+.env.*
+!.env.example
+.guard-banlist.local
+your-org.md
+council.yaml
+*.local.yaml
+*.local.yml
+*.local.json
+*.local.md
+
+# Runtime state, logs, caches
+state/
+*.log
+.cache/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Generated run transcripts: keep the folder (via .gitkeep), not the runs themselves.
+# examples/ holds the committed sample transcripts and is deliberately not ignored here.
+runs/*
+!runs/.gitkeep
+
+# Cumulative leaderboard state: regenerated locally by your own runs, not shipped.
+leaderboard.json
+
+# Environments
+.venv/
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
